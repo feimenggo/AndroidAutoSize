@@ -245,8 +245,8 @@ public final class AutoSizeConfig {
         getMetaData(application);
         isVertical = application.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         int[] screenSize = ScreenUtils.getScreenSize(application);
-        mScreenWidth = screenSize[0];
-        mScreenHeight = screenSize[1];
+        mScreenWidth = Math.min(screenSize[0], screenSize[1]);
+        mScreenHeight = Math.max(screenSize[0], screenSize[1]);
         mStatusBarHeight = ScreenUtils.getStatusBarHeight();
         AutoSizeLog.d("designWidthInDp = " + mDesignWidthInDp + ", designHeightInDp = " + mDesignHeightInDp + ", screenWidth = " + mScreenWidth + ", screenHeight = " + mScreenHeight);
 
@@ -267,8 +267,8 @@ public final class AutoSizeConfig {
                     }
                     isVertical = newConfig.orientation == Configuration.ORIENTATION_PORTRAIT;
                     int[] screenSize = ScreenUtils.getScreenSize(application);
-                    mScreenWidth = screenSize[0];
-                    mScreenHeight = screenSize[1];
+                    AutoSizeConfig.this.mScreenWidth = Math.min(screenSize[0], screenSize[1]);
+                    AutoSizeConfig.this.mScreenHeight = Math.max(screenSize[0], screenSize[1]);
                 }
             }
 
